@@ -5,12 +5,14 @@ const diaryEntryRoutes = require('./routes/diaryEntryRoutes');
 const authMiddleware = require('./middleware/authMiddleware');
 const config = require('./config')
 const dotenv = require('dotenv')
+const cookieParser = require('cookie-parser');
 
 dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 
 
 // Routes

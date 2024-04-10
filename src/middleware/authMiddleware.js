@@ -1,13 +1,15 @@
+const config = require('../config')
 const jwt = require('jsonwebtoken');
+const cookies = require("cookie-parser")
 
 function authMiddleware(req, res, next) {
-  const token = req.header('Authorization');
+  const token = req.cookies.token; // Extract token from cookie
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT);
+    const decoded = jwt.verify(token, config.jwtSecret);
     req.userId = decoded.userId;
     next();
   } catch (error) {

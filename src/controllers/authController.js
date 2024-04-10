@@ -39,7 +39,13 @@ class AuthController {
       if (!user || user.password !== password) {
         return res.status(401).json({ message: 'Invalid credentials' });
       }
+      
+      // If the user is found and password is correct, create a token
       const token = jwt.sign({ userId: user._id }, config.jwtSecret);
+
+      // Set the token as a cookie in the response
+      res.cookie('token', token, { httpOnly: true }); // httpOnly: true makes the cookie accessible only by the server
+  
       res.json({ token });
     } catch (error) {
       res.status(400).json({ message: error.message });
