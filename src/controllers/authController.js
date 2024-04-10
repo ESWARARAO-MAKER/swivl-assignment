@@ -44,7 +44,7 @@ class AuthController {
       const token = jwt.sign({ userId: user._id }, config.jwtSecret);
 
       // Set the token as a cookie in the response
-      res.cookie('token', token, { httpOnly: true }); // httpOnly: true makes the cookie accessible only by the server
+      res.cookie('token', token, { httpOnly: true });
   
       res.json({ token });
     } catch (error) {
